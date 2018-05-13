@@ -294,7 +294,7 @@ class TemplateInterface(Interface):
                 "-d": {"type": str,
                        "default": None},
                 "-e": {"type": str,
-                       "default": "pico"},
+                       "default": os.environ['EDITOR']},
                 "-s": {"type": bool,
                        "default": False},
                 "-i": {"type": str,
