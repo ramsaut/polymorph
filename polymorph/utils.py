@@ -16,7 +16,7 @@ from os.path import dirname, join
 
 POLYM_PATH = dirname(polymorph.__file__)
 
-def capture(userfilter="", pcapname=".tmp.pcap", func=None, count=0, time=None):
+def capture(userfilter="", pcapname=".tmp.pcap", func=None, count=0, time=None, offline=None):
     """This function is a wrapper function above the sniff scapy function. The
     result is a list of templates. The specification on filtering options can
     be found at: https://goo.gl/kVAmHQ
@@ -43,9 +43,9 @@ def capture(userfilter="", pcapname=".tmp.pcap", func=None, count=0, time=None):
     """
     if func:
         plist = sniff(filter=userfilter, prn=func, count=count,
-                      timeout=time)
+                      timeout=time, offline=offline)
     else:
-        plist = sniff(filter=userfilter, count=count, timeout=time)
+        plist = sniff(filter=userfilter, count=count, timeout=time, offline=offline)
     # Save the list of packages to disk for later readin with pyshark
     if len(plist) > 0:
         wrpcap(join(POLYM_PATH, pcapname), plist)

@@ -101,11 +101,16 @@ class MainInterface(Interface):
         elif args["-vv"]:
             func = MainInterface._print_vv
         # Capturing
-        capture_banner()
-        cap = capture(userfilter=args["-f"],
-                      count=args["-c"],
-                      time=args["-t"],
-                      func=func)
+        if(args["-file"]):
+            cap = capture(userfilter=args["-f"],
+                          func=func,
+                          offline=args["-file"])
+        else:
+            capture_banner()
+            cap = capture(userfilter=args["-f"],
+                          count=args["-c"],
+                          time=args["-t"],
+                          func=func)
         if cap:
             run_tlistinterface(cap)
         else:
