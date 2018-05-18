@@ -3,7 +3,7 @@
 # For more information about the project: https://github.com/shramos/polymorph
 
 import itertools
-
+import os
 
 class TList:
     """This class provides a container to store a set of templates, with some
@@ -69,7 +69,7 @@ class TList:
         """
         self._generate_templates()
         for t in self._templates:
-            t.write(path)
+            t.write(os.path.join(path, t._name.replace("/", "_") + ".json"))
 
     def show(self):
         """Show a list of the templates in the `TList`."""
