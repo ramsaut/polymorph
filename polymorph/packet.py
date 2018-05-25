@@ -34,13 +34,65 @@ class Packet(object):
     def raw(self):
         """:obj:`bytes`: Packet bytes."""
         global raw
-        return raw
+        # The payload is returned without the Ethernet layer
+        return raw[14:]
 
     @raw.setter
     def raw(self, value):
         global raw
-        # FIXIT: Padding for Ether layer that nfqueue.get_payload() ignores
+        # Padding for Ether layer that nfqueue.get_payload() ignores
         raw = b'\x00' * 14 + value
+
+    def get_payload(self):
+        """Returns the payload of the packet in bytes."""
+        return self.raw
+
+    def set_payload(self, payload):
+        """Sets the payload of the packet.
+
+        Parameters
+        ----------
+        payload : :obj:`bytes`
+            The packet in bytes without the ethernet layer.
+
+        """
+        self.raw = payload
+
+    def global_var(self, name, default):
+        """Creates a global variable.
+
+        Parameters
+        ----------
+        name: :obj:`str`
+            The name of the global variable.
+        default: :obj
+            The default value of the global variable.
+
+        """
+        try:
+            eval("self." + str(name))
+        except AttributeError:
+            setattr(self, name, default)
+
+    def insert(self, index1, index2, value):
+        """Inserts a value between two index in the payload.
+
+        Parameters
+        ----------
+        index1: int
+            First index in the payload.
+        index2: int
+            Second index in the payload.
+        value: :obj:`bytes`
+            Value to insert in the payload.
+
+        """
+        if index1 >= index2 and type(value) is not bytes:
+            raise ValueError
+        else:
+            payload = b'\x00' * 14 + self.raw
+            payload = payload[:index1] + value + payload[index2:]
+            self.raw = payload[14:]
 
 
 class PacketLayer(object):

@@ -1,3 +1,4 @@
+.DS_Store
 .idea/
 .tmp.pcap
 polymorph.egg-info/
@@ -8,3 +9,7 @@ polymorph/.tlinterface_history
 polymorph/.tmp.pcap
 polymorph/conditions/*
 **/__pycache__/
+
+*~
+*.pyc
+__pycache__/*g
