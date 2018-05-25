@@ -1,0 +1,10 @@
+.idea/
+.tmp.pcap
+polymorph.egg-info/
+polymorph/.linterface_history
+polymorph/.minterface_history
+polymorph/.tinterface_history
+polymorph/.tlinterface_history
+polymorph/.tmp.pcap
+polymorph/conditions/*
+**/__pycache__/
